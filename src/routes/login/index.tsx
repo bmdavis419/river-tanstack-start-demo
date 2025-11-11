@@ -51,7 +51,7 @@ function RouteComponent() {
           The resuming stream demo is locked behind a password since it hit's an
           LLM endpoint and a DB. If you want to try it,{" "}
           <a
-            href="https://github.com/bmdavis419/river-demos/tree/main/tanstack-start-demo"
+            href="https://github.com/bmdavis419/river-tanstack-start-demo"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 hover:text-blue-600"
