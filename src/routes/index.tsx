@@ -164,9 +164,9 @@ const QuestionAskerDemo = () => {
     hasMounted.current = true;
   }, [resumeKey, question, hasMounted.current]);
 
-  const handleAsk = async () => {
+  const handleAsk = () => {
     if (!trimmedQuestion || isLoading) return;
-    handleClear();
+    setConversation([]);
     setConversation((prev) => [
       ...prev,
       {
@@ -174,8 +174,7 @@ const QuestionAskerDemo = () => {
         content: trimmedQuestion,
       },
     ]);
-    setQuery({ question: "", resumeKey: "" });
-    await questionCaller.start({
+    questionCaller.start({
       question: trimmedQuestion,
     });
   };
