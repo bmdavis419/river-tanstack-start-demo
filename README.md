@@ -1,6 +1,6 @@
 # TanStack Start Demo
 
-this demo shows off how to use (river)[https://github.com/bmdavis419/river] with tanstack start. there are two examples:
+this demo shows off how to use [river](https://github.com/bmdavis419/river) with tanstack start. there are two examples:
 
 - question asker: fully resumable ai sdk agent with a tool call
 - character classifier: a basic example of a custom stream
