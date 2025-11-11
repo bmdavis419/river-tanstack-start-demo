@@ -1,0 +1,52 @@
+{
+  "name": "river-tanstack-start-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": " bunx --bun vite dev --port 3000",
+    "build": "bunx --bun vite build",
+    "preview": "bunx --bun vite preview",
+    "start": "bun run ./.output/server",
+    "link": "railway link",
+    "deploy": "railway up"
+  },
+  "dependencies": {
+    "@davis7dotsh/river-adapter-tanstack": "^0.2.1",
+    "@davis7dotsh/river-core": "^0.2.0",
+    "@davis7dotsh/river-provider-redis": "^0.2.0",
+    "@openrouter/ai-sdk-provider": "^1.2.1",
+    "@tailwindcss/vite": "^4.0.6",
+    "@tanstack/nitro-v2-vite-plugin": "^1.132.31",
+    "@tanstack/react-devtools": "^0.7.0",
+    "@tanstack/react-router": "^1.132.0",
+    "@tanstack/react-router-devtools": "^1.132.0",
+    "@tanstack/react-router-ssr-query": "^1.131.7",
+    "@tanstack/react-start": "^1.132.0",
+    "@tanstack/router-plugin": "^1.132.0",
+    "ai": "^5.0.89",
+    "ioredis": "^5.8.2",
+    "lucide-react": "^0.544.0",
+    "neverthrow": "^8.2.0",
+    "nuqs": "^2.7.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-markdown": "^10.1.0",
+    "tailwindcss": "^4.0.6",
+    "vite-tsconfig-paths": "^5.1.4",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.2.0",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "jsdom": "^27.0.0",
+    "typescript": "^5.7.2",
+    "vite": "^7.1.7",
+    "vitest": "^3.0.5",
+    "web-vitals": "^5.1.0"
+  }
+}
