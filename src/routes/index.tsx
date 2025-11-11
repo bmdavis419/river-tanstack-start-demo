@@ -8,6 +8,7 @@ import { serverCheckAuthStatus, serverLogout } from "@/lib/auth";
 
 const searchParams = {
   resumeKey: parseAsString.withDefault(""),
+  question: parseAsString.withDefault(""),
 };
 
 export const Route = createFileRoute("/")({
@@ -50,14 +51,13 @@ type QuestionConversationDisplay =
     };
 
 const QuestionAskerDemo = () => {
-  const [question, setQuestion] = useState("");
-  const trimmedQuestion = question.trim();
   const [conversation, setConversation] = useState<
     QuestionConversationDisplay[]
   >([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [query, setQuery] = useQueryStates(searchParams);
+  const [{ question, resumeKey }, setQuery] = useQueryStates(searchParams);
   const hasMounted = useRef(false);
+  const trimmedQuestion = question.trim();
 
   const questionCaller = myRiverClient.askQuestion.useStream({
     onChunk: (chunk) => {
@@ -142,17 +142,27 @@ const QuestionAskerDemo = () => {
     },
     onInfo: (info) => {
       if (info.encodedResumptionToken) {
-        setQuery({ resumeKey: info.encodedResumptionToken });
+        setQuery({
+          resumeKey: info.encodedResumptionToken,
+          question: trimmedQuestion,
+        });
       }
     },
   });
 
   useEffect(() => {
-    if (query.resumeKey && !hasMounted.current) {
-      questionCaller.resume(query.resumeKey);
+    if (resumeKey && question && !hasMounted.current) {
+      questionCaller.resume(resumeKey);
+      setConversation((prev) => [
+        {
+          role: "user",
+          content: question,
+        },
+        ...prev,
+      ]);
     }
     hasMounted.current = true;
-  }, [query.resumeKey, hasMounted.current]);
+  }, [resumeKey, question, hasMounted.current]);
 
   const handleAsk = async () => {
     if (!trimmedQuestion || isLoading) return;
@@ -164,7 +174,7 @@ const QuestionAskerDemo = () => {
         content: trimmedQuestion,
       },
     ]);
-    setQuestion("");
+    setQuery({ question: "", resumeKey: "" });
     await questionCaller.start({
       question: trimmedQuestion,
     });
@@ -179,8 +189,7 @@ const QuestionAskerDemo = () => {
 
   const handleClear = () => {
     setConversation([]);
-    setQuestion("");
-    setQuery({ resumeKey: "" });
+    setQuery({ question: "", resumeKey: "" });
   };
 
   const handleLogout = async () => {
@@ -191,7 +200,7 @@ const QuestionAskerDemo = () => {
   };
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setQuestion(e.target.value);
+    setQuery({ question: e.target.value });
     const textarea = e.target;
     textarea.style.height = "auto";
     textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`;
